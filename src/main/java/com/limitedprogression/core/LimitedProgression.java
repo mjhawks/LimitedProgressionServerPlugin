@@ -18,6 +18,8 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityPortalEnterEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.ChunkLoadEvent;
@@ -422,6 +424,23 @@ public final class LimitedProgression extends JavaPlugin implements Listener{
             s.setCancelled(true);
         }
     }
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e){
+        Material invitem = e.getCurrentItem().getType();
+        if(!canAcquireItem(invitem)){
+            e.setCancelled(true);
+        }
+    }
+    @EventHandler
+    public void onItemMoveInInventory(InventoryMoveItemEvent e){
+        Material invitem = e.getItem().getType();
+        if(!canAcquireItem(invitem)){
+            e.setCancelled(true);
+        }
+    }
+
+
+
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent e){
         checkForBannedRegions(e.getChunk());
