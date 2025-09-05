@@ -1,0 +1,10 @@
+name: LimitedProgression
+version: '${project.version}'
+main: com.limitedprogression.core.LimitedProgression
+api-version: 1.21.6
+load: STARTUP
+description: This plugin forces the slowed progression of the vanilla game through use of set ages
+author: Nuts
+commands:
+  age:
+    description: a command to get and set the current age i.e. iron, nether, diamond etc.
