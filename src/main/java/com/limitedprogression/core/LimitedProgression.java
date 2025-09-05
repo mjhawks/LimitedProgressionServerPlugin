@@ -384,7 +384,6 @@ public final class LimitedProgression extends JavaPlugin implements Listener{
                     if (region.contains(e.getClickedBlock().getBoundingBox())){
                         e.setUseInteractedBlock(PlayerInteractEvent.Result.DENY);
                         e.setCancelled(true);
-                        logger.info("THIS INTERACTION SHOULD BE DENIED");
                         return;
                     }
                 }
@@ -402,8 +401,14 @@ public final class LimitedProgression extends JavaPlugin implements Listener{
     private void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent e){
         logger.info("interact at entity");
     }
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     private void onPlayerEntityInteract (PlayerInteractEntityEvent e){
+        if(e.getRightClicked() instanceof NPC & (ageLookup.get(age.trade)>ageLookup.get(CurrentAge))){
+            e.setCancelled(true);
+        }
+        if(e.getRightClicked() instanceof Tameable & (ageLookup.get(age.stone)>ageLookup.get(CurrentAge))){
+            e.setCancelled(true);
+        }
         for(BoundingBox region: BannedPieces){
             if (region.contains(e.getRightClicked().getBoundingBox())){
                 e.setCancelled(true);
